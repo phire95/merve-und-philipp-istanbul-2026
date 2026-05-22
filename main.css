@@ -1,146 +1,426 @@
-* {
-	box-sizing: border-box;
+/* =============================================================
+   main.css – Merve & Philipp, Istanbul 2026
+   ============================================================= */
+
+/* --- Reset & Box Model --- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-hr {
-	border-top: 1.5px solid black;
-	margin-left: -30px;
-	margin-right: -30px;
+/* --- CSS Custom Properties --- */
+:root {
+  --color-bg: #eec5cf;
+  --color-text: #1a1a1a;
+  --color-text-muted: black;
+  --color-accent: black;
+  --color-nav-bg: red;
+  --color-nav-text: #fff;
+  --color-gate-bg: #f0babf;
+
+  --font-sans: sans-serif;
+  --font-serif: Times, "Times New Roman", serif;
+
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 2rem;
+  --space-lg: 3.5rem;
+  --space-xl: 5rem;
+
+  --nav-height: 56px;
+  --nav-wave: 18px;
+  --margin-h: clamp(5px, 3em, 40px);
 }
 
-img {
-	width: 100%;
-}
-
-.first-column {
-    width: 33%;
-    padding: 0 10px 0 0;
-    float: left;
-	padding-top: 50px;
-}
-
-.second-column {
-    width: 66%;
-    padding: 0 10px 0 0;
-    float: right;
-	padding-top: 50px;
-}
-
-.second-column > img
-{
-	width: 100%;
-	padding-bottom: 2vw;
-	margin-top: 5vw;
-}
-
-@media only screen and (max-width: 800px) {
-   .first-column {
-        width: 100%;
-        padding-bottom: 10px;
-        float: none;
-    }
-
-    .second-column {
-        width: 100%;
-        padding-bottom: 10px;
-        float: none;
-    }
-	.second-column > img
-	{
-		width: 100%;
-		padding-bottom: 1vw;
-	}
-}
-
-/* Clear floats after the columns */
-.row:after {
-	content: "";
-	display: table;
-	clear: both;
+/* --- Base --- */
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
 }
 
 body {
-	background-color: white;
-	color: black;
-	margin: clamp(5px, 3em, 40px);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-serif);
+  margin: 0;
+  padding: 0;
+  line-height: 1.7;
+}
+
+/* --- Utility --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Password Gate --- */
+#password-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-gate-bg);
+  padding: var(--space-md);
+}
+
+.gate-box {
+  text-align: center;
+  max-width: 380px;
+  width: 100%;
+}
+
+.gate-box h1 {
+  font-family: var(--font-sans);
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
+  font-weight: normal;
+  margin: 0 0 var(--space-xs);
+}
+
+.gate-subtitle {
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin: 0 0 var(--space-md);
+}
+
+#pw-input {
+  display: block;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  font-family: var(--font-sans);
+  border: 1.5px solid #000;
+  background: transparent;
+  color: var(--color-text);
+  margin-bottom: var(--space-sm);
+  outline: none;
+}
+
+#pw-input:focus {
+  border-color: var(--color-nav-bg);
+}
+
+#pw-submit {
+  display: block;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+  font-family: var(--font-sans);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+#pw-submit:hover {
+  background-color: var(--color-nav-bg);
+}
+
+#pw-error {
+  color: var(--color-nav-bg);
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  margin-top: var(--space-sm);
+}
+
+/* --- Navigation --- */
+#navigation {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: red;
+  
+}
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--nav-height);
+  padding: 0 var(--margin-h);
+}
+
+.nav-title {
+  font-family: var(--font-sans);
+  font-size: clamp(1.1rem, 2vw, 0.95rem);
+  color: var(--color-nav-text);
+}
+
+
+#lang-toggle {
+  background: transparent;
+  border: 1.5px solid rgba(255, 255, 255, 0.7);
+  color: var(--color-nav-text);
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  padding: 0.25rem 0.7rem;
+  cursor: pointer;
+}
+
+#lang-toggle:hover {
+  border-color: #fff;
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* --- Hero --- */
+.hero {
+  position: relative;
+  width: 100%;
+  max-height: 70vh;
+  overflow: hidden;
+}
+
+.hero img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+  max-height: 70vh;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.4) 0%, transparent 55%);
+  padding: var(--space-md) var(--margin-h);
+}
+
+.hero-text {
+  text-align: center;
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
+  letter-spacing: 0.06em;
+  line-height: 1.8;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* --- Layout --- */
+.section {
+  padding: var(--space-lg) var(--margin-h);
+}
+
+.row {
+  display: flex;
+  gap: var(--space-md);
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.row::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.col-label {
+  flex: 0 0 33%;
+  padding-top: 50px;
+}
+
+.col-content {
+  flex: 1;
+  padding-top: 50px;
+}
+
+/* --- Typography (matching original structure) --- */
+
+/* Section headings — sans-serif, like <t> in original */
+t, .col-label h2 {
+  font-size: clamp(20px, 1.6vw, 100px);
+  font-family: var(--font-sans);
+  line-height: 1.4;
+}
+
+.col-label h2 {
+  font-size: clamp(20px, 1.6vw, 100px);
+  font-family: var(--font-sans);
+  line-height: 1.4;
+  font-weight: normal;
+  letter-spacing: normal;
+  text-transform: none;
+  color: var(--color-text);
+  margin: 0 0 var(--space-sm);
+}
+
+/* Body text — serif, like <p3> in original */
+p, ul li, .desc {
+  font-size: clamp(24px, 2.4vw, 35px);
+  font-family: var(--font-serif);
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "liga" 1, "kern";
+  line-height: 1.6;
+  margin: 0 0 var(--space-sm);
+}
+
+ul {
+  padding-left: 1.4rem;
+  margin: 0 0 var(--space-sm);
+}
+
+ul li {
+  margin-bottom: 0.3rem;
 }
 
 a {
-	text-decoration: underline;
-	font-style: normal;
-	color: black;
+  color: var(--color-text);
+  text-decoration: underline;
 }
 
 a:hover {
-	color: red;
+  color: red;
 }
 
-p {
-	font-size: clamp(20px, 3.2vw, 50px);
-	font-family: sans-serif;
+/* Sub-labels within content (e.g. "Sehenswürdigkeiten") */
+.list-label {
+  font-family: var(--font-sans);
+  font-size: clamp(16px, 1.3vw, 22px);
+  font-weight: bold;
+  margin: var(--space-sm) 0 0.3rem;
 }
 
-p3 {
-	font-size: clamp(24px, 2.4vw, 35px);
-	font-family: Times, "Times New Roman", serif;
-	text-rendering: optimizeLegibility;
-	font-feature-settings: "liga" 1, "kern";
-	line-height: 1.6;
+/* Neighborhood headings */
+h3 {
+  font-family: var(--font-sans);
+  font-size: clamp(18px, 1.5vw, 26px);
+  font-weight: normal;
+  margin: var(--space-md) 0 var(--space-xs);
+  border-bottom: 1.5px solid #000;
+  padding-bottom: 0.4rem;
 }
 
-p2 {
-	font-size: clamp(1rem, 3vw, 1.4rem);
-	font-family: sans-serif;
+.neighborhood-sub {
+  font-size: 0.75em;
+  color: var(--color-text-muted);
 }
 
-t {
-	font-size: clamp(20px, 1.6vw, 100px);
-	font-family: sans-serif;
-	line-height: 1.4;
+/* Schedule */
+.schedule {
+  display: flex;
+  flex-direction: column;
 }
 
-t3 {
-	color: black;
-	font-size: clamp(20px, 1.2vw, 100px);
-	font-family: sans-serif;
-	line-height: 1.6;
-	font-weight: bold;
+.schedule-item {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-md);
+  padding: 0.75rem 0;
+  border-bottom: 1.5px solid black;
 }
 
-t2 {
-	color: black;
-	font-size: clamp(12px, 1.2vw, 100px);
-	font-family: sans-serif;
-	line-height: 1;
-	font-weight: bold;
+.schedule-item:last-child {
+  border-bottom: none;
 }
 
-t4 {
-	color: black;
-	font-size: clamp(12px, 1vw, 100px);
-	font-family: sans-serif;
-	line-height: 1;
-	font-weight: bold;
+.time {
+  font-family: var(--font-sans);
+  font-size: clamp(16px, 1.4vw, 22px);
+  color: var(--color-text-muted);
+  flex: 0 0 160px;
 }
 
-.header {
-	background: yellow !important;
-	margin-left: -30px;
-	margin-right: -30px;
-	padding-top: 30px;
-	padding-left: 30px;
-	padding-right: 30px;
+/* Tips (no cards — plain text list) */
+.tips-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  margin-top: var(--space-sm);
 }
 
+.tip-item strong {
+  font-family: var(--font-sans);
+  font-size: clamp(16px, 1.3vw, 22px);
+  display: block;
+}
+
+.tip-item p {
+  margin: 0;
+}
+
+/* Neighborhood blocks */
+.neighborhood {
+  margin-top: var(--space-lg);
+}
+
+.neighborhood:first-of-type {
+  margin-top: var(--space-md);
+}
+
+/* FAQ */
+.faq-item {
+  margin-bottom: var(--space-md);
+}
+
+.faq-q {
+  font-family: var(--font-sans);
+  font-size: clamp(18px, 1.5vw, 26px);
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+}
+
+/* --- HR (matches original: 1.5px solid black, negative margins) --- */
+hr {
+  border: none;
+  border-top: 1.5px solid black;
+  margin-left: calc(-1 * var(--margin-h));
+  margin-right: calc(-1 * var(--margin-h));
+}
+
+/* --- Footer --- */
 footer {
-	margin-top: 3em;
-	padding-top: 1em;
-	background-color: yellow;
-	text-align: center;
-	font-style: normal;
-	font-weight: 400;
-	margin: 0;
-	font-size: 1.3em;
-	line-height: 1.3;
-	letter-spacing: 0.05em;
+  padding: var(--space-lg) var(--margin-h) var(--space-xl);
+}
+
+/* --- Responsive --- */
+@media (max-width: 800px) {
+  .row {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .col-label,
+  .col-content {
+    flex: none;
+    width: 100%;
+    padding-top: 10px;
+  }
+
+  .schedule-item {
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .time {
+    flex: none;
+  }
+
+  .hero-text {
+    font-size: clamp(0.9rem, 3.5vw, 1.1rem);
+  }
+}
+
+.wave {
+   
+  --size: 50px;
+  --position: sticky;
+  --m: 0.5;
+  --p: calc(var(--m)*var(--size));
+  --R: calc(var(--size)*sqrt(var(--m)*var(--m) + 1));
+
+  mask:
+    radial-gradient(var(--R) at 50% calc(100% - (var(--size) + var(--p))), #000 99%, #0000 101%)
+      calc(50% - 2 * var(--size)) 0/calc(4 * var(--size)) 100%,
+    radial-gradient(var(--R) at 50% calc(100% + var(--p)), #0000 99%, #000 101%) 
+      50% calc(100% - var(--size)) / calc(4 * var(--size)) 100% repeat-x;
+  background: linear-gradient(90deg,red,red);
+  height: 200px;
 }
